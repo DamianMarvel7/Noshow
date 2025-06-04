@@ -45,7 +45,7 @@ def sample_truncnorm(mean, sd, low, high, size):
     return truncnorm.rvs(a, b, loc=mean, scale=sd, size=size)
 
 @st.cache_data()
-def load_model(model_path: str = 'lr2.pkl') -> object:
+def load_model(model_path: str = 'lr.pkl') -> object:
     """
     Load and cache the trained logistic regression model pipeline.
     Ensure 'lr.pkl' is in the same directory or provide the correct path.
@@ -66,15 +66,15 @@ def get_single_input() -> pd.DataFrame:
     for feat in numeric_features:
         stats = numeric_stats[feat]
         if feat != 'showing_rate':
-            min_v, max_v = stats['min'], stats['max']
+        #     min_v, max_v = stats['min'], stats['max']
             default, step, fmt = int(stats['mean']), 1, '%d'
         else:
-            min_v, max_v = float(stats['min']), float(stats['max'])
+        #     min_v, max_v = float(stats['min']), float(stats['max'])
             default, step, fmt = float(stats['mean']), 0.01, '%.2f'
         data[feat] = st.sidebar.number_input(
             label=feat.replace('_', ' ').title(),
-            min_value=min_v,
-            max_value=max_v,
+            # min_value=min_v,
+            # max_value=max_v,
             value=default,
             step=step,
             format=fmt
